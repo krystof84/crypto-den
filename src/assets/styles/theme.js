@@ -1,5 +1,7 @@
-export const theme = {
-  colors: {
-    white: '#ffffff',
-  }
-};
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  color: {
+    black: '#000',
+  },
+});

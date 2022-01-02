@@ -1,24 +1,27 @@
-import React, { useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
+import React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from 'assets/styles/theme';
-import axios from 'axios';
+import ResponsiveAppBar from '../components/AppBar/AppBar';
+import Container from '@mui/material/Container';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Home from 'views/Home/Home';
 
 const Root = () => {
-
-  useEffect(() => {
-
-    axios
-      .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd')
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
-    <div>
+    <Router>
       <ThemeProvider theme={theme}>
-
+      <Container>
+        <ResponsiveAppBar />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+        </Routes>
+      </Container>
       </ThemeProvider>
-    </div>
+    </Router>
   );
 };
 
