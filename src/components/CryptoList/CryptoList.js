@@ -4,20 +4,23 @@ import clsx from 'clsx';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { CryptoListItemName } from "./CryptoList.styles";
+import { currencyFormatter, numberWithCommas } from "./helpers";
 
 const CryptoList = () => {
   const [ cryptoList, setCryptoList ] = useState([]);
-  const currencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+
   const usdPrice = {
     type: 'number',
     valueFormatter: ({ value }) => currencyFormatter.format(Number(value)),
   };
 
+  const alignRight = {
+    cellClassName: 'MuiDataGrid-cell--textRight',
+    headerClassName: 'MuiDataGrid-columnHeader--alignRight'
+  };
+
   const columns = [
-    { field: 'index', headerName: '#', width: 50 },
+    { field: 'index', headerName: '#', width: 20 },
     {
       field: 'name',
       headerName: 'Name',
@@ -43,7 +46,16 @@ const CryptoList = () => {
       width: 100,
       valueGetter: ({ value }) => value && value.toFixed(2) + '%',
     },
-    { field: 'market_cap', headerName: 'Market Cap', width: '180', ...usdPrice }
+    { field: 'market_cap', headerName: 'Market Cap', width: '180', ...usdPrice },
+    {
+      field: 'circulating_supply',
+      headerName: 'Circulating supply',
+      width: 220,
+      ...alignRight,
+      renderCell: (params) => (
+        numberWithCommas(params.row.circulating_supply) + ' ' + params.row.symbol.toUpperCase()
+      )
+    },
   ];
   const rows = cryptoList;
 
@@ -65,9 +77,11 @@ const CryptoList = () => {
               id: item.id,
               image: item.image,
               name: item.name,
+              symbol: item.symbol,
               current_price: item.current_price,
               price_change_percentage_24h: item.price_change_percentage_24h,
-              market_cap: item.market_cap
+              market_cap: item.market_cap,
+              circulating_supply: item.circulating_supply
             };
             filteredResult.push(singleRow);
           })
@@ -90,7 +104,6 @@ const CryptoList = () => {
   return (
     <Box
       sx={{
-        height: '80vh',
         width: '100%',
 
         '.MuiDataGrid-cell': {
@@ -110,6 +123,7 @@ const CryptoList = () => {
         rows={rows}
         columns={columns}
         disableSelectionOnClick
+        autoHeight={true}
       />
     </Box>
   );
