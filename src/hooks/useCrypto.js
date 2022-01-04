@@ -7,8 +7,7 @@ export const useCrypto = () => {
 
   const getCryptoList = useCallback(async () => {
     try {
-      const result = await axios.get(coinGeckoApiURL + '/coins/markets?vs_currency=usd');
-      return result;
+      return await axios.get(coinGeckoApiURL + '/coins/markets?vs_currency=usd');
     } catch (e) {
       console.log(e);
     }

@@ -71,6 +71,10 @@ const CryptoList = () => {
         '.MuiDataGrid-cell': {
           fontWeight: 'bold',
 
+          '&:active, &:link, &:visited, &:focus': {
+            outline: 'none',
+          },
+
           '&.positive': {
             color: (theme) => theme.palette.success.light,
           },
