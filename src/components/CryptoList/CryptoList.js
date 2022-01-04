@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import clsx from 'clsx';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { CryptoListItemName } from "./CryptoList.styles";
-import { currencyFormatter, numberWithCommas } from "./helpers";
+import { usdPrice, numberWithCommas, addIndexesObjectsInArray } from "./helpers";
+import { useCrypto } from "../../hooks/useCrypto";
 
 const CryptoList = () => {
   const [ cryptoList, setCryptoList ] = useState([]);
-
-  const usdPrice = {
-    type: 'number',
-    valueFormatter: ({ value }) => currencyFormatter.format(Number(value)),
-  };
-
-  const alignRight = {
-    cellClassName: 'MuiDataGrid-cell--textRight',
-    headerClassName: 'MuiDataGrid-columnHeader--alignRight'
-  };
+  const { getCryptoList } = useCrypto();
 
   const columns = [
     { field: 'index', headerName: '#', width: 20 },
@@ -38,10 +29,12 @@ const CryptoList = () => {
       headerName: '24h %',
       headerClassName: 'MuiDataGrid-columnHeader--alignRight',
       cellClassName: (params) => {
-        return clsx('MuiDataGrid-cell--textRight', {
-          negative: params.value.slice(0, -1) < 0,
-          positive: params.value.slice(0, -1) > 0,
-        });
+        if(params.value) {
+          return clsx('MuiDataGrid-cell--textRight', {
+            negative: params.value.slice(0, -1) < 0,
+            positive: params.value.slice(0, -1) > 0,
+          });
+        }
       },
       width: 100,
       valueGetter: ({ value }) => value && value.toFixed(2) + '%',
@@ -51,7 +44,8 @@ const CryptoList = () => {
       field: 'circulating_supply',
       headerName: 'Circulating supply',
       width: 220,
-      ...alignRight,
+      cellClassName: 'MuiDataGrid-cell--textRight',
+      headerClassName: 'MuiDataGrid-columnHeader--alignRight',
       renderCell: (params) => (
         numberWithCommas(params.row.circulating_supply) + ' ' + params.row.symbol.toUpperCase()
       )
@@ -59,47 +53,15 @@ const CryptoList = () => {
   ];
   const rows = cryptoList;
 
-  let result = [];
-  let filteredResult = [];
-  let singleRow = {};
-
   useEffect(() => {
-    let isMounted = true;
 
-    axios
-      .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd')
-      .then((res) => {
-        if(isMounted) {
-          result = [...res.data];
-          res.data.map((item, index) => {
-            singleRow = {
-              index: ++index,
-              id: item.id,
-              image: item.image,
-              name: item.name,
-              symbol: item.symbol,
-              current_price: item.current_price,
-              price_change_percentage_24h: item.price_change_percentage_24h,
-              market_cap: item.market_cap,
-              circulating_supply: item.circulating_supply
-            };
-            filteredResult.push(singleRow);
-          })
-        }
-      })
-      .then(() => {
-          // if(isMounted) setCryptoList(filteredResult);
-          if(isMounted) {
-            console.log(result);
-            setCryptoList(filteredResult);
-          }
+    (async() => {
+      const list = await getCryptoList();
+      const newList = addIndexesObjectsInArray(list.data);
+      setCryptoList(newList);
+    })();
 
-        }
-      )
-      .catch((err) => console.log(err));
-
-    return () => { isMounted = false; }
-  }, []);
+  }, [getCryptoList]);
 
   return (
     <Box
