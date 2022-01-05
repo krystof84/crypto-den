@@ -13,8 +13,17 @@ export const useCrypto = () => {
     }
   }, []);
 
+  const getCryptoListByCategory = useCallback(async (categoryId) => {
+    try {
+      return await axios.get(coinGeckoApiURL + '/coins/markets?vs_currency=usd&category=' + categoryId);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
   return {
     getCryptoList,
+    getCryptoListByCategory,
   }
 
 };

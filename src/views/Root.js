@@ -9,6 +9,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from 'views/Home/Home';
+import Category from 'views/Category/Category';
 
 const Root = () => {
   return (
@@ -18,6 +19,7 @@ const Root = () => {
         <ResponsiveAppBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route path="/category/:id" element={<Category />}/>
         </Routes>
       </Container>
       </ThemeProvider>
