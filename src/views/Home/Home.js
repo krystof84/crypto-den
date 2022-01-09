@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CryptoList from 'components/CryptoList/CryptoList';
 import { CryptoListColumns } from 'components/CryptoList/CryptoListColumns';
-import { addIndexesObjectsInArray } from "components/CryptoList/helpers";
+import { addIndexesObjectsInArray } from "helpers/helpers";
 import { useCrypto } from "hooks/useCrypto";
 import Box from '@mui/material/Box';
 

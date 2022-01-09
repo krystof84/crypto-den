@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {numberWithCommas, usdPrice} from "components/CryptoList/helpers";
+import {numberWithCommas, usdPrice} from "helpers/helpers";
 import { CryptoListItemName } from "components/CryptoList/CryptoList.styles";
 
 export const CryptoListColumns = [
