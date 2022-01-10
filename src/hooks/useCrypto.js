@@ -24,9 +24,19 @@ export const useCrypto = () => {
     }
   }, [navigate]);
 
+  const getCategoryById = useCallback(async (categoryId) => {
+    try {
+      const categories = await axios.get(coinGeckoApiURL + '/coins/categories');
+      return categories.data.filter((category) => category.id === categoryId);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
   return {
     getCryptoList,
     getCryptoListByCategory,
+    getCategoryById
   }
 
 };
