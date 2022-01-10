@@ -16,10 +16,14 @@ const Category = () => {
   useEffect(() => {
 
     (async() => {
-      const list = await getCryptoListByCategory(id);
-      const newList = addIndexesObjectsInArray(list.data);
+      try {
+        const list = await getCryptoListByCategory(id);
+        const newList = addIndexesObjectsInArray(list.data);
+        setCryptoList(newList);
+      } catch(e) {
+        console.log(e);
+      }
 
-      setCryptoList(newList);
     })();
 
   }, [getCryptoListByCategory, id] );

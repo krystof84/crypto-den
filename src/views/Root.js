@@ -7,9 +7,11 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from 'react-router-dom';
 import Home from 'views/Home/Home';
 import Category from 'views/Category/Category';
+import Error from 'views/Error/Error';
 
 const Root = () => {
   return (
@@ -20,6 +22,8 @@ const Root = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/category/:id" element={<Category />}/>
+          <Route path="/not-found" element={<Error message="Page not found" />} />
+          <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </Container>
       </ThemeProvider>
