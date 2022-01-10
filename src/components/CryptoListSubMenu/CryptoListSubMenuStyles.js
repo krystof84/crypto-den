@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 export const Wrapper = styled('div')(({theme})=> ({
   marginBottom: '10px',
   fontWeight: 'bold',
-  fontFamily: 'Roboto, Sans-serif',
+  fontFamily: theme.font.roboto,
   fontSize: '14px',
 
   '& span': {

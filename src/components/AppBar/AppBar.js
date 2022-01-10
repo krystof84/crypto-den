@@ -1,9 +1,22 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
+import { styled } from '@mui/system';
+
+const Logo = styled('h6')(({ theme }) => ({
+  flexGrow: '1',
+
+  '& a': {
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    fontSize: '22px',
+    fontFamily: theme.font.roboto,
+    color: theme.color.black,
+  }
+}));
 
 const ResponsiveAppBar = () => {
   return (
@@ -14,18 +27,13 @@ const ResponsiveAppBar = () => {
       sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
     >
       <Toolbar sx={{ flexWrap: 'wrap' }}>
-        <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          <Link
-            href="/"
-            underline="none"
-            sx={{
-              fontWeight: 'bold',
-              color: (theme) => `${theme.color.black}`
-            }}
+        <Logo>
+          <RouterLink
+            to="/"
           >
             Crypto Den
-          </Link>
-        </Typography>
+          </RouterLink>
+        </Logo>
         <nav>
           <Link
             variant="button"
