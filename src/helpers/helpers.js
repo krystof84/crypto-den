@@ -5,10 +5,18 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 export const usdPrice = {
   type: 'number',
-  valueFormatter: ({ value }) => currencyFormatter.format(Number(value)),
+  valueFormatter: ({ value }) => {
+    if( value !== null && value !== '' ) {
+      return currencyFormatter.format(Number(value))
+    }
+  },
 };
 
-export const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const numberWithCommas = (x) => {
+  if( x!== null && x !== '' ) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+};
 
 export const addIndexesObjectsInArray = (data) => {
   let singleObject = {};
