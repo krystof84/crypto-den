@@ -12,6 +12,7 @@ import {
 import Home from 'views/Home/Home';
 import Category from 'views/Category/Category';
 import Error from 'views/Error/Error';
+import Currency from 'views/Currency/Currency';
 
 const Root = () => {
   return (
@@ -23,6 +24,7 @@ const Root = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/category/:id" element={<Category />}/>
           <Route path="/not-found" element={<Error message="Page not found" />} />
+          <Route path="/currency/:id" element={<Currency />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </Container>

@@ -33,10 +33,20 @@ export const useCrypto = () => {
     }
   }, []);
 
+  const getCurrencyById = useCallback(async (coinId) => {
+    try {
+      return await axios.get(coinGeckoApiURL + '/coins/' + coinId + '?tickers=true&market_data=true');
+    } catch (e) {
+      console.log(e);
+      navigate('/not-found');
+    }
+  }, [navigate]);
+
   return {
     getCryptoList,
     getCryptoListByCategory,
-    getCategoryById
+    getCategoryById,
+    getCurrencyById
   }
 
 };

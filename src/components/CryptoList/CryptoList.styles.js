@@ -10,5 +10,5 @@ export const CryptoListItemName = styled('div')({
   },
   '& span': {
     color: '#000',
-  }
+  },
 });

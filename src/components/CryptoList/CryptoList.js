@@ -1,10 +1,11 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import CryptoListSubMenu from "../CryptoListSubMenu/CryptoListSubMenu";
 
 const CryptoList = ({rows, columns}) => {
+  let navigate = useNavigate();
 
   return (
     <Box
@@ -35,6 +36,14 @@ const CryptoList = ({rows, columns}) => {
         columns={columns}
         disableSelectionOnClick
         autoHeight={true}
+        sx={{
+          '& .MuiDataGrid-row': {
+            cursor: 'pointer',
+          },
+        }}
+        onRowClick={(params) => {
+          navigate('/currency/' + params.id);
+        }}
       />
     </Box>
   );
