@@ -24,7 +24,10 @@ const ResponsiveAppBar = () => {
       position="static"
       color="default"
       elevation={0}
-      sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+      sx={{
+        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        mb: '30px',
+      }}
     >
       <Toolbar sx={{ flexWrap: 'wrap' }}>
         <Logo>

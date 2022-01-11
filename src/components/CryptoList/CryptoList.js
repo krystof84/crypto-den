@@ -11,14 +11,9 @@ const CryptoList = ({rows, columns}) => {
     <Box
       sx={{
         width: '100%',
-        marginTop: '30px',
 
         '.MuiDataGrid-cell': {
           fontWeight: 'bold',
-
-          '&:active, &:link, &:visited, &:focus': {
-            outline: 'none',
-          },
 
           '&.positive': {
             color: (theme) => theme.palette.success.light,
@@ -28,6 +23,14 @@ const CryptoList = ({rows, columns}) => {
             color: (theme) => theme.palette.error.main,
           }
         },
+
+        '& .MuiDataGrid-row': {
+          cursor: 'pointer',
+        },
+
+        '& .css-1nytev6-MuiDataGrid-root .MuiDataGrid-columnHeader:focus, & .css-1nytev6-MuiDataGrid-root .MuiDataGrid-cell:focus': {
+          outline: 'none',
+        }
       }}
     >
       <CryptoListSubMenu />
@@ -36,11 +39,6 @@ const CryptoList = ({rows, columns}) => {
         columns={columns}
         disableSelectionOnClick
         autoHeight={true}
-        sx={{
-          '& .MuiDataGrid-row': {
-            cursor: 'pointer',
-          },
-        }}
         onRowClick={(params) => {
           navigate('/currency/' + params.id);
         }}
