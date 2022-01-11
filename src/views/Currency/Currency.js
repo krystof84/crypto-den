@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCrypto } from 'hooks/useCrypto';
+import Header from 'components/Currency/Header/Header';
 
 const Currency = () => {
   const {id} = useParams();
@@ -20,10 +21,8 @@ const Currency = () => {
 
   return (
     <>
-      {console.log(currency)}
-      <h1>
-        {currency.name}
-      </h1>
+      { console.log(currency) }
+      <Header currency={currency} />
     </>
   );
 };
