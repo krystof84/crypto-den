@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Wrapper } from "./CryptoListSubMenuStyles";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
-import Link from '@mui/material/Link';
 
 const CryptoListSubMenu = () => {
   return (
