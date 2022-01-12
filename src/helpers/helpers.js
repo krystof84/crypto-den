@@ -1,13 +1,31 @@
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
+const decimalCount = (num) => {
+  const numStr = String(num);
+
+  if (numStr.includes('.')) {
+    return numStr.split('.')[1].length;
+  }
+  return 0;
+};
+
+export const formatPrice = (price, currencySymbol, currencySymbolPlacement = true) =>  {
+  let digits;
+
+  if(Number.isInteger(price)) {
+    digits = 2;
+  } else {
+    digits = decimalCount(price);
+  }
+
+  return currencySymbolPlacement ?
+    currencySymbol + ' ' + (price).toFixed(digits).replace(/\d(?=(\d{3})+\.)/g, '$&,') :
+    (price).toFixed(digits).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' ' + currencySymbol;
+};
 
 export const usdPrice = {
   type: 'number',
   valueFormatter: ({ value }) => {
     if( value !== null && value !== '' ) {
-      return currencyFormatter.format(Number(value))
+      return formatPrice(value, '$');
     }
   },
 };
