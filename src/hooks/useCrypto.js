@@ -42,11 +42,21 @@ export const useCrypto = () => {
     }
   }, [navigate]);
 
+  const getMarketChartByCurrencyId = useCallback(async (coinId, numberOfDays) => {
+    try {
+      return await axios.get(`${coinGeckoApiURL}/coins/${coinId}/market_chart?vs_currency=usd&days=${numberOfDays}`);
+    } catch (e) {
+      console.log(e);
+      navigate('/not-found');
+    }
+  }, [navigate]);
+
   return {
     getCryptoList,
     getCryptoListByCategory,
     getCategoryById,
-    getCurrencyById
+    getCurrencyById,
+    getMarketChartByCurrencyId
   }
 
 };
