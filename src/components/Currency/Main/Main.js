@@ -2,9 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
-import { formatPrice } from "helpers/helpers";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import moment from 'moment';
+import { formatPrice } from "helpers/helpers";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import TooltipChart from 'components/TooltipChart/TooltipChart';
 
 const Header = ({currency, currencyChart}) => {
   const CurrencyImage = () =>  currency.image ? <img src={currency.image.small} alt={currency.symbol} /> : null;
@@ -80,6 +81,7 @@ const Header = ({currency, currencyChart}) => {
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
             <YAxis tick={{fontSize: 12, fontFamily: 'Roboto, sans-serif'}} />
             <XAxis dataKey="xAxisLabel" tick={{fontSize: 12, fontFamily: 'Roboto, sans-serif'}} />
+            <Tooltip content={<TooltipChart />} />
           </LineChart>
         </ResponsiveContainer>
       </div>
